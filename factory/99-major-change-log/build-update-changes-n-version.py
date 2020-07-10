@@ -118,7 +118,7 @@ with MAIN_DOC_LOG_TEX_FILE.open(
 before, after = content.split("\\date{")
 _, after      = after.split("}", maxsplit = 1)
 
-content = before + "\\date{" + lastdate + "}{" + after
+content = before + "\\date{" + lastdate + "}" + after
 
 
 before, after = content.split("Version \\texttt{")

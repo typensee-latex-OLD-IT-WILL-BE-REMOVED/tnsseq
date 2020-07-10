@@ -78,7 +78,7 @@ for pack, opts in ALL_IMPORTS_N_TIKZ_LIBS["packages"].items():
     if opts:
         for oneoption in opts:
             ALL_IMPORTS.append(
-                "\\PassOptionsToPackage{" + oneoption + "}" + pack
+                "\\PassOptionsToPackage{" + oneoption + "}{" + pack + "}"
             )
 
 if ALL_IMPORTS_N_TIKZ_LIBS["tikzlibs"]:

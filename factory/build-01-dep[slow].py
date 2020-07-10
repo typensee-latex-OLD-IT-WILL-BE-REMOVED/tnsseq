@@ -154,6 +154,9 @@ def minify(packages):
                 if stdname not in stdimports:
                     stdimports[stdname] = []
 
+# Local sty.
+    localpackages = set(packages) - set(stdimports.keys())
+
 # Let's minimize.
     somecleaningdone = True
 
@@ -170,7 +173,7 @@ def minify(packages):
                 del stdimports[pack]
                 break
 
-    shortlist = list(stdimports)
+    shortlist = list(stdimports) + list(localpackages)
 
     return sorted(shortlist)
 

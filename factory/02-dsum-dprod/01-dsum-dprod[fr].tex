@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+
+	\usepackage{01-dsum-dprod}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{Quelques modifications générales}
+
+\subsection{Sommes et produits en mode ligne}
+
+Pour limiter l'espace, \LaTeX{} affiche $\sum_{k=0}^{n}$ et non $\dsum_{k=0}^{n}$ sauf si l'on utilise la commande \macro{displaystyle}.
+Les macros \macro{dsum} et \macro{dprod} permettent de se passer de \macro{displaystyle}.
+Voici un exemple.
+
+
+\begin{latexex}
+ $\dsum_{k=0}^{n} 2^k
+= \sum_{k=0}^{n} 2^k$
+
+ $\dprod_{k=1}^{n} k
+= \prod_{k=1}^{n} k$
+\end{latexex}
+
+
+\begin{remark}
+	On peut taper  $\dsum_{k=0}^{n} \frac{1}{n}$ où la fraction n'est pas en mode \macro{displaystyle}.
+\end{remark}
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Sommes et produits en mode ligne}
+
+Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
+
+
+\separation
+
+
+\IDmacro*{dprod}{0}
+
+\IDmacro*{dsum}{0}
+
+\end{document}

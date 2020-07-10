@@ -1,0 +1,136 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+
+	\usepackage{01-big-small-O-n-co}
+\makeatother
+
+
+% == EXTRAS == %
+
+
+
+\begin{document}
+
+% \section{Analysis}
+
+\subsection{Comparaison asymptotique de suites et de fonctions}
+
+\subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+                              {Les notations "grand O" et "petit O"}}
+
+\newparaexample{}
+
+Les notations suivantes sont dues à Landau.
+
+\begin{latexex}
+$\bigO{}$ ou $\smallO{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+\begin{latexex}
+$\bigO{x} \neq \smallO{x}$ ou
+$e^{t + \smallO{t}} = e^{\bigO{t}}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsubsection{Fiches techniques}
+
+\paragraph{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+                          {Les notations "grand O" et "petit O"}}
+
+\IDmacro*{bigO}{1}
+
+\IDmacro*{smallO}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
+
+
+% ---------------------- %
+
+
+\subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
+                              {La notation "grand Omega"}}
+
+\newparaexample{}
+
+La notation suivante est due à Hardy et Littlewood.
+
+\begin{latexex}
+$\bigomega{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+Dans l'exemple suivant, $f(n) = \bigomega{g(n)}$ signifie :
+$\exists (m, n_0)$ tel que $n \geq n_0$ implique $f(n) \geq m g(n)$.
+
+\begin{latexex}
+$f(n) = \bigomega{g(n)}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsubsection{Fiches techniques}
+
+\paragraph{\texorpdfstring{La notation $\bigomega{}$}%
+                          {La notation "grand Omega"}}
+
+\IDmacro*{bigomega}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
+
+
+% ---------------------- %
+
+
+\subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
+                              {La notation "grand Theta"}}
+
+\newparaexample{}
+
+\begin{latexex}
+$\bigtheta{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+Dans l'exemple suivant, $f(n) = \bigtheta{g(n)}$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
+
+\begin{latexex}
+$f(n) = \bigtheta{g(n)}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsubsection{Fiches techniques}
+
+\paragraph{\texorpdfstring{La notation $\bigtheta{}$}%
+                          {La notation "grand Theta"}}
+
+\IDmacro*{bigtheta}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+
+\end{document}

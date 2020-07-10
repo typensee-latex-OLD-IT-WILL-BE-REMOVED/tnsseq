@@ -1,0 +1,420 @@
+%\documentclass[12pt,a4paper]{scrartcl}
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter % Technical doc - START
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ucs}
+
+\usepackage[french]{babel,varioref}
+
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{enumitem}
+
+\usepackage{multicol}
+
+\usepackage{makecell}
+
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage{amsthm}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+
+\usepackage{ifplatform}
+
+\usepackage{ifthen}
+
+\usepackage{cbdevtool}
+
+
+
+% MISC
+
+\newtcblisting{latexex}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing side text
+}
+
+\newtcblisting{latexex-flat}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+}
+
+\newtcblisting{latexex-alone}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing only
+}
+
+
+\newcommand\env[1]{\texttt{#1}}
+\newcommand\macro[1]{\env{\textbackslash{}#1}}
+
+
+
+\setlength{\parindent}{0cm}
+\setlist{noitemsep}
+
+\theoremstyle{definition}
+\newtheorem*{remark}{Remarque}
+
+\usepackage[raggedright]{titlesec}
+
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{0.5em}
+
+
+\newcommand\separation{
+	\medskip
+	\hfill\rule{0.5\textwidth}{0.75pt}\hfill
+	\medskip
+}
+
+
+\newcommand\extraspace{
+	\vspace{0.25em}
+}
+
+
+\newcommand\whyprefix[2]{%
+	\textbf{\prefix{#1}}-#2%
+}
+
+\newcommand\mwhyprefix[2]{%
+	\texttt{#1 = #1-#2}%
+}
+
+\newcommand\prefix[1]{%
+	\texttt{#1}%
+}
+
+
+\newcommand\inenglish{\@ifstar{\@inenglish@star}{\@inenglish@no@star}}
+
+\newcommand\@inenglish@star[1]{%
+	\emph{\og #1 \fg}%
+}
+
+\newcommand\@inenglish@no@star[1]{%
+	\@inenglish@star{#1} en anglais%
+}
+
+
+\newcommand\ascii{\texttt{ASCII}}
+
+
+% Example
+\newcounter{paraexample}[subsubsection]
+
+\newcommand\@newexample@abstract[2]{%
+	\paragraph{%
+		#1%
+		\if\relax\detokenize{#2}\relax\else {} -- #2\fi%
+	}%
+}
+
+
+
+\newcommand\newparaexample{\@ifstar{\@newparaexample@star}{\@newparaexample@no@star}}
+
+\newcommand\@newparaexample@no@star[1]{%
+	\refstepcounter{paraexample}%
+	\@newexample@abstract{Exemple \theparaexample}{#1}%
+}
+
+\newcommand\@newparaexample@star[1]{%
+	\@newexample@abstract{Exemple}{#1}%
+}
+
+
+% Change log
+\newcommand\topic{\@ifstar{\@topic@star}{\@topic@no@star}}
+
+\newcommand\@topic@no@star[1]{%
+	\textbf{\textsc{#1}.}%
+}
+
+\newcommand\@topic@star[1]{%
+	\textbf{\textsc{#1} :}%
+}
+
+\makeatother % Technical doc - END
+
+
+\usepackage{ tnsseq }
+
+
+\begin{document}
+
+\renewcommand\labelitemi{\raisebox{0.125em}{\tiny\textbullet}}
+\renewcommand{\labelitemii}{---}
+
+\title{   %
+	Le package \texttt{ tnsseq }\\%
+	{\footnotesize Code source disponible sur \url{ https://github.com/typensee-latex/tnstools.git }.}\\%
+{\footnotesize Version \texttt{0.0.0-beta} développée et testée sur \macosxname{}.}%
+}
+\author{Christophe BAL}
+\date{2020-07-10}{{{{{
+
+\maketitle
+
+
+\vspace{2em}
+
+\hrule
+
+\tableofcontents
+
+\vspace{1.5em}
+
+\hrule
+
+\newpage
+
+\section{Introduction}
+
+Le package \verb+tnsseq+ propose quelques macros utiles quand l'on parle de suites ou de séries.
+% \section{Analysis}
+
+\subsection{Des notations complémentaires pour des suites spéciales}
+
+\newparaexample*{}
+
+\begin{latexex}
+$\seqplus{F}{1}{2}$
+
+$\seqhypergeo{F}{1}{2}$
+
+$\seqsuprageo{F}{1}{2}{3}{4}$
+pour les fous\dots :-)
+\end{latexex}
+
+
+% ---------------------- %
+%\section{Quelques modifications générales}
+
+\subsection{Sommes et produits en mode ligne}
+
+Pour limiter l'espace, \LaTeX{} affiche $\sum_{k=0}^{n}$ et non $\dsum_{k=0}^{n}$ sauf si l'on utilise la commande \macro{displaystyle}.
+Les macros \macro{dsum} et \macro{dprod} permettent de se passer de \macro{displaystyle}.
+Voici un exemple.
+
+
+\begin{latexex}
+ $\dsum_{k=0}^{n} 2^k
+= \sum_{k=0}^{n} 2^k$
+
+ $\dprod_{k=1}^{n} k
+= \prod_{k=1}^{n} k$
+\end{latexex}
+
+
+\begin{remark}
+	On peut taper  $\dsum_{k=0}^{n} \frac{1}{n}$ où la fraction n'est pas en mode \macro{displaystyle}.
+\end{remark}
+
+
+% ---------------------- %
+% \section{Analysis}
+
+\subsection{Comparaison asymptotique de suites et de fonctions}
+
+\subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+                              {Les notations "grand O" et "petit O"}}
+
+\newparaexample{}
+
+Les notations suivantes sont dues à Landau.
+
+\begin{latexex}
+$\bigO{}$ ou $\smallO{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+\begin{latexex}
+$\bigO{x} \neq \smallO{x}$ ou
+$e^{t + \smallO{t}} = e^{\bigO{t}}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
+                              {La notation "grand Omega"}}
+
+\newparaexample{}
+
+La notation suivante est due à Hardy et Littlewood.
+
+\begin{latexex}
+$\bigomega{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+Dans l'exemple suivant, $f(n) = \bigomega{g(n)}$ signifie :
+$\exists (m, n_0)$ tel que $n \geq n_0$ implique $f(n) \geq m g(n)$.
+
+\begin{latexex}
+$f(n) = \bigomega{g(n)}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
+                              {La notation "grand Theta"}}
+
+\newparaexample{}
+
+\begin{latexex}
+$\bigtheta{}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{}
+
+Dans l'exemple suivant, $f(n) = \bigtheta{g(n)}$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
+
+\begin{latexex}
+$f(n) = \bigtheta{g(n)}$
+\end{latexex}
+
+
+% ---------------------- %
+\newpage
+
+\section{Historique}
+
+Nous ne donnons ici qu'un très bref historique récent
+\footnote{
+	On ne va pas au-delà de un an depuis la dernière version.
+}
+de \verb+tnsseq+ à destination de l'utilisateur principalement.
+Tous les changements sont disponibles uniquement en anglais dans le dossier \verb+change-log+ : voir le code source de \verb+tnsseq+ sur \verb+github+.
+
+\begin{description}
+% Changes shown - START
+
+    \medskip
+    \item[2020-07-10] Première version \verb+0.0.0-beta+.
+% ------------------------ %
+
+% Changes shown - END 
+\end{description}
+
+
+\newpage
+\section{Toutes les fiches techniques} \label{techincal-ids}
+
+
+\subsubsection{Des suites spéciales}
+
+\IDmacro*{seqplus}{2}
+
+\IDarg{1} l'exposant à droite.
+
+\IDarg{2} l'indice à droite.
+
+
+\separation
+
+
+\IDmacro*{seqhypergeo}{2}
+
+\IDarg{1} l'indice à gauche.
+
+\IDarg{2} l'indice à droite.
+
+
+\separation
+
+
+\IDmacro*{seqsuprageo}{4}
+
+\IDarg{1} l'indice à gauche.
+
+\IDarg{2} l'indice à droite.
+
+\IDarg{3} l'exposant à droite.
+
+\IDarg{4} l'exposant à gauche.
+\subsubsection{Sommes et produits en mode ligne}
+
+Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
+
+
+\separation
+
+
+\IDmacro*{dprod}{0}
+
+\IDmacro*{dsum}{0}
+\subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+                          {Les notations "grand O" et "petit O"}}
+
+\IDmacro*{bigO}{1}
+
+\IDmacro*{smallO}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
+
+
+% ---------------------- %
+
+
+
+\subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
+                          {La notation "grand Omega"}}
+
+\IDmacro*{bigomega}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
+
+
+% ---------------------- %
+
+
+
+\subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
+                          {La notation "grand Theta"}}
+
+\IDmacro*{bigtheta}{1}
+
+\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+
+
+\end{document}

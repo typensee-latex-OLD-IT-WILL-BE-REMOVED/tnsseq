@@ -1,0 +1,16 @@
+% == PACKAGES USED == %
+
+\RequirePackage{mathtools}
+
+
+% == DEFINITIONS == %
+
+\newcommand\seqsuprageo[5]{ \prescript{#5}{#2}{#1}_{#3}^{#4} }
+
+\newcommand\seqhypergeo[3]{%
+    \seqsuprageo{#1}{#2}{#3}{}{}%
+}
+
+\newcommand\seqplus[3]{%
+    \seqsuprageo{#1}{}{#2}{#3}{}%
+}

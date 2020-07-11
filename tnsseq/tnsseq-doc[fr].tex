@@ -193,9 +193,7 @@
 \section{Introduction}
 
 Le package \verb+tnsseq+ propose quelques macros utiles quand l'on parle de suites ou de séries.
-% \section{Analysis}
-
-\subsection{Des notations complémentaires pour des suites spéciales}
+\section{Des notations complémentaires pour des suites spéciales}
 
 \newparaexample*{}
 
@@ -210,9 +208,7 @@ pour les fous\dots :-)
 
 
 % ---------------------- %
-%\section{Quelques modifications générales}
-
-\subsection{Sommes et produits en mode ligne}
+\section{Sommes et produits en mode ligne}
 
 Pour limiter l'espace, \LaTeX{} affiche $\sum_{k=0}^{n}$ et non $\dsum_{k=0}^{n}$ sauf si l'on utilise la commande \macro{displaystyle}.
 Les macros \macro{dsum} et \macro{dprod} permettent de se passer de \macro{displaystyle}.
@@ -234,11 +230,9 @@ Voici un exemple.
 
 
 % ---------------------- %
-% \section{Analysis}
+\section{Comparaison asymptotique de suites et de fonctions}
 
-\subsection{Comparaison asymptotique de suites et de fonctions}
-
-\subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+\subsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
                               {Les notations "grand O" et "petit O"}}
 
 \newparaexample{}
@@ -264,7 +258,7 @@ $e^{t + \smallO{t}} = e^{\bigO{t}}$
 % ---------------------- %
 
 
-\subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
+\subsection{\texorpdfstring{La notation $\bigomega{}$}%
                               {La notation "grand Omega"}}
 
 \newparaexample{}
@@ -292,7 +286,7 @@ $f(n) = \bigomega{g(n)}$
 % ---------------------- %
 
 
-\subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
+\subsection{\texorpdfstring{La notation $\bigtheta{}$}%
                               {La notation "grand Theta"}}
 
 \newparaexample{}
@@ -341,6 +335,8 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
 
+\subsection{Des notations complémentaires pour des suites spéciales}
+
 \subsubsection{Des suites spéciales}
 
 \IDmacro*{seqplus}{2}
@@ -372,6 +368,8 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{3} l'exposant à droite.
 
 \IDarg{4} l'exposant à gauche.
+\subsection{Sommes et produits en mode ligne}
+
 \subsubsection{Sommes et produits en mode ligne}
 
 Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
@@ -383,6 +381,8 @@ Les macros suivantes sans argument ont un comportement spécifique vis à vis de
 \IDmacro*{dprod}{0}
 
 \IDmacro*{dsum}{0}
+\subsection{Comparaison asymptotique de suites et de fonctions}
+
 \subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
                           {Les notations "grand O" et "petit O"}}
 

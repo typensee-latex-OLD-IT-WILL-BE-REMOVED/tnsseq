@@ -42,6 +42,11 @@ MYFRAME = lambda x: withframe(
 
 
 def startingtech(text):
+    text = text.strip()
+
+    if text.startswith("%"):
+        return False
+
     return "{Fiches techniques}" in text \
         or "{Fiche technique}" in text
 
@@ -137,58 +142,53 @@ for latexfile in LATEXFILES:
         content = content.strip()
 
 # Extract technical infos
-        if not startingtech(content):
-            humancontent = content
-            techcontent  = ""
+        humancontent = []
+        techcontent  = []
+        addtotech    = False
+        latexsectech = ""
 
-        else:
-            humancontent = []
-            techcontent  = []
-            addtotech    = False
-            latexsectech = ""
+        for i, line in enumerate(content.split("\n")):
+            if i == 0:
+                if not line.startswith("%"):
+                    techcontent  += [" ", " ", line]
 
-            for i, line in enumerate(content.split("\n")):
-                if i == 0:
-                    if not line.startswith("%"):
-                        techcontent  += [" ", " ", line]
+                humancontent += [" ", " ", line]
 
-                    humancontent += [" ", " ", line]
+                continue
 
-                    continue
+            if startingtech(line):
+                addtotech       = True
+                latexsectech, _ = line.split("{", maxsplit = 1)
+                continue
 
-                if startingtech(line):
-                    addtotech       = True
-                    latexsectech, _ = line.split("{", maxsplit = 1)
-                    continue
+            if addtotech \
+            and closetechsec(line, latexsectech):
+                addtotech = False
 
-                if addtotech \
-                and closetechsec(line, latexsectech):
-                    addtotech = False
+            if addtotech:
+                techcontent.append(line)
 
-                if addtotech:
-                    techcontent.append(line)
-
-                else:
-                    humancontent.append(line)
+            else:
+                humancontent.append(line)
 
 
-            techcontent = "\n".join(techcontent)
-            techcontent = techcontent.strip()
+        techcontent = "\n".join(techcontent)
+        techcontent = techcontent.strip()
 
-            for i, section in enumerate(LATEX_SECTIONS[::-1][1:], -1):
-                techcontent = techcontent.replace(
-                    section,
-                    LATEX_SECTIONS[i]
-                )
-
+        for i, section in enumerate(LATEX_SECTIONS[::-1][1:], -1):
             techcontent = techcontent.replace(
-                "\\paragraph",
-                "\\subsubsection"
+                section,
+                LATEX_SECTIONS[i]
             )
 
+        techcontent = techcontent.replace(
+            "\\paragraph",
+            "\\subsubsection"
+        )
 
-            humancontent = "\n".join(humancontent)
-            humancontent = humancontent.strip()
+
+        humancontent = "\n".join(humancontent)
+        humancontent = humancontent.strip()
 
 
         TECHNIC_CONTENTS.append(techcontent)
@@ -225,7 +225,6 @@ print(f"{DECO}* Update of << {DOC_PATH.name} >> done.")
 # ------------------------------- #
 # -- COMPILE ALL THE DOCS FILE -- #
 # ------------------------------- #
-
 nbrepeat = 3
 
 for latexpath in DIR_DOC_PATH.walk(f"file::*.tex"):

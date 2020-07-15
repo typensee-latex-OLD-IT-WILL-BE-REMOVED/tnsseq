@@ -12,7 +12,7 @@
 %     2) http://tex.stackexchange.com/questions/30944/mathcalo-and-font-size
 %     3) https://tex.stackexchange.com/a/53091/6880
 
-\newcommand\@bigtAsymptoricOpe[2]{%
+\newcommand\tnsseq@big@asympto@ope[2]{%
     \ensuremath{%
         \if\relax\detokenize{#2}\relax
             #1%
@@ -23,15 +23,15 @@
 }
 
 \newcommand\bigomega[1]{%
-    \@bigtAsymptoricOpe{\bm{\Omega}}{#1}%
+    \tnsseq@big@asympto@ope{\bm{\Omega}}{#1}%
 }
 
 \newcommand\bigtheta[1]{%
-    \@bigtAsymptoricOpe{\bm{\Theta}}{#1}%
+    \tnsseq@big@asympto@ope{\bm{\Theta}}{#1}%
 }
 
 \newcommand\bigO[1]{%
-    \@bigtAsymptoricOpe{\mathcal{O}}{#1}%
+    \tnsseq@big@asympto@ope{\mathcal{O}}{#1}%
 }
 
 \newcommand\smallO[1]{%

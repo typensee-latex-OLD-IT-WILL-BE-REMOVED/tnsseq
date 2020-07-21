@@ -3,7 +3,6 @@
 from mistool.latex_use import Build, clean as latexclean
 from mistool.os_use import PPath
 from mistool.string_use import between, MultiReplace
-from mistool.term_use import ALL_FRAMES, withframe
 from orpyste.data import ReadBlock
 
 
@@ -29,17 +28,31 @@ PYFORMAT = MultiReplace({
 })
 
 
-# ----------- #
-# -- TOOLS -- #
-# ----------- #
+LATEX_SECTIONS = [
+    section
+    for section in """
+\\section
+\\subsection
+\\subsubsection
+\\paragraph
+\\textit
+    """.strip().split("\n")
+]
+
+LATEX_LOWER_SECTIONS = {
+    section: LATEX_SECTIONS[len(LATEX_SECTIONS) - i]
+    for i, section in enumerate(LATEX_SECTIONS[::-1][1:], 1)
+}
+
+LATEX_SECTIONS.pop(-1)
+
 
 DECO = " "*4
 
-MYFRAME = lambda x: withframe(
-    text  = x,
-    frame = ALL_FRAMES['latex_pretty']
-)
 
+# ----------- #
+# -- TOOLS -- #
+# ----------- #
 
 def startingtech(text):
     text = text.strip()
@@ -51,34 +64,61 @@ def startingtech(text):
         or "{Fiche technique}" in text
 
 
-LATEX_SECTIONS = [
-    section
-    for section in """
-\\section
-\\subsection
-\\subsubsection
-\\paragraph
-    """.strip().split("\n")
-]
+def closetechsec(line, level):
+    thislevel = extractlevel(line.strip())
 
-def closetechsec(text, section):
-    if not section:
-        raise Exception("Empty section for technical reports !")
-
-    text = text.strip()
-
-    pos = LATEX_SECTIONS.index(section)
-
-    for sublevel in LATEX_SECTIONS[:pos+1]:
-        if text.startswith(sublevel):
-            return True
-
-    return False
+    return (
+        thislevel
+        and
+        LATEX_SECTIONS.index(level) >= LATEX_SECTIONS.index(thislevel)
+    )
 
 
-# ---------------------- #
-# -- COPYING PICTURES -- #
-# ---------------------- #
+def extractlevel(line):
+    for level in LATEX_SECTIONS:
+        if line.startswith(level):
+            return level
+
+    return ""
+
+
+def extracttitle(level, lines, i):
+    infos = lines[i]
+
+# We have to take care of the following case.
+#
+# \subsection{\texorpdfstring{Les opérateurs $\pp{}$ et $\dd{}$}%
+#                            {Les opérateurs "d rond" et "d droit"}}
+    if "\\texorpdfstring" in infos:
+        i     += 1
+        infos += "\n" + lines[i]
+
+    title = infos[len(level):]
+
+    return i, title
+
+
+def extracttechtitle(level, line):
+    global LAST_HUMAN_SEC
+
+    i = len(LAST_HUMAN_SEC) - 1
+
+    while(LAST_HUMAN_SEC[i][0] != level):
+        i -= 1
+
+    return LAST_HUMAN_SEC[i][0] + LAST_HUMAN_SEC[i][1]
+
+
+def updatelevels(techcontent):
+    for old, new in LATEX_LOWER_SECTIONS.items():
+        techcontent = techcontent.replace(old, new)
+
+    return techcontent
+
+
+# ------------------------- #
+# -- COPYING EXTRA FILES -- #
+# ------------------------- #
 
 for img in THIS_DIR.walk("file::**\[fr\].png"):
     if img.stem.endswith("-nodoc[fr]"):
@@ -126,6 +166,10 @@ for subdir in THIS_DIR.walk("dir::"):
 
 LATEXFILES.sort()
 
+LAST_HUMAN_SEC = []
+LAST_SECTION   = ""
+
+
 for latexfile in LATEXFILES:
     with latexfile.open(
         mode     = "r",
@@ -139,60 +183,86 @@ for latexfile in LATEXFILES:
             ]
         )
 
-        content = content.strip()
+    content = content.strip()
+    lines   = content.split("\n")
+# We need i in case of use of \texorpdfstring.
+    i       = 0
 
-# Extract technical infos
-        humancontent = []
-        techcontent  = []
-        addtotech    = False
-        latexsectech = ""
+    humancontent = []
 
-        for i, line in enumerate(content.split("\n")):
-            if i == 0:
-                if not line.startswith("%"):
-                    techcontent  += [" ", " ", line]
+    techcontent   = []
+    addtotech     = False
+    lasttechlevel = ""
 
-                humancontent += [" ", " ", line]
+    for i, aline in enumerate(lines):
+# New section for technical infos
+        if startingtech(aline):
+            addtotech = True
 
-                continue
+            if LAST_SECTION:
+                techcontent += [LAST_SECTION, ""]
+                LAST_SECTION  = ""
 
-            if startingtech(line):
-                addtotech       = True
-                latexsectech, _ = line.split("{", maxsplit = 1)
-                continue
+            lasttechlevel = extractlevel(aline)
 
-            if addtotech \
-            and closetechsec(line, latexsectech):
-                addtotech = False
+            if lasttechlevel != "\\section":
+                techcontent += [
+                    extracttechtitle(lasttechlevel, aline),
+                    ""
+                ]
 
-            if addtotech:
-                techcontent.append(line)
+            LAST_HUMAN_SEC = []
 
-            else:
-                humancontent.append(line)
+            continue
 
+# A line to add.
+#
+# Dow have to close a technical section ?
+        if addtotech and closetechsec(aline, lasttechlevel):
+            addtotech = False
 
-        techcontent = "\n".join(techcontent)
-        techcontent = techcontent.strip()
+# A technical line.
+        if addtotech:
+            techcontent.append(aline)
 
-        for i, section in enumerate(LATEX_SECTIONS[::-1][1:], -1):
-            techcontent = techcontent.replace(
-                section,
-                LATEX_SECTIONS[i]
-            )
+# A human line.
+        else:
+            seclevel = extractlevel(aline)
 
-        techcontent = techcontent.replace(
-            "\\paragraph",
-            "\\subsubsection"
-        )
+            if seclevel:
+# i can change because of the use of \texorpdfstring.
+                iold = i
 
+                i, title = extracttitle(
+                    seclevel,
+                    lines,
+                    i
+                )
 
-        humancontent = "\n".join(humancontent)
-        humancontent = humancontent.strip()
+                if i != iold:
+                    aline += lines[i]
 
+                LAST_HUMAN_SEC.append((seclevel, title))
 
-        TECHNIC_CONTENTS.append(techcontent)
-        HUMAN_CONTENTS.append(humancontent)
+                if seclevel == "\\section":
+                    LAST_SECTION = aline
+
+            humancontent.append(aline)
+
+# Lower level for sections.
+    techcontent = "\n".join(techcontent)
+    techcontent = techcontent.strip()
+
+    if techcontent:
+        techcontent = updatelevels(techcontent)
+
+# Clean the human content.
+    humancontent = "\n".join(humancontent)
+    humancontent = humancontent.strip()
+
+# Store the contents.
+    TECHNIC_CONTENTS.append(techcontent)
+    HUMAN_CONTENTS.append(humancontent)
 
 
 # ------------------------- #

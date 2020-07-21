@@ -18,17 +18,20 @@ from mistool.string_use import joinand
 
 THIS_DIR  = PPath(__file__).parent
 
+SUFFIX_CFG = {
+    "extra": ('-nox', '--noextra'),
+    "slow" : ('-nos', '--noslow'),
+}
+
 EXT_2_CMDS = {
-    "py"  : 'python',
-    "bash": 'bash'
+    "py": 'python',
+    "sh": 'bash'
 }
 
 PPATH_PATTERNS = [
     f"file::build-*.{ext}"
     for ext in EXT_2_CMDS
 ]
-
-SLOW_SUFFIX = "[slow]"
 
 
 # --------- #
@@ -47,14 +50,16 @@ parser = argparse.ArgumentParser(
 )
 
 
-parser.add_argument(
-    '-nos', '--noslow',
-    action  = "store_true",
-    default = False,
-    help    = "ask to only execute the scripts without the suffix "
-             f" ``{SLOW_SUFFIX}`` "
-              "(some long builders are only useful few times)."
-)
+for suffix, (sname, lname) in SUFFIX_CFG.items():
+    parser.add_argument(
+        sname, lname,
+        action  = "store_true",
+        default = False,
+        help    = "ask to only execute the scripts without the suffix "
+                 f" ``[{suffix}]`` "
+                  "(some builders are only useful few times)."
+    )
+
 
 parser.add_argument(
     '-nor', '--norec',
@@ -77,6 +82,11 @@ if not ARGS.norec:
 # -- LAUNCHING ALL THE BUILDING TOOLS -- #
 # -------------------------------------- #
 
+option2suffix = {
+    lname[2:]: f"[{suffix}]"
+    for suffix, (_, lname) in SUFFIX_CFG.items()
+}
+
 allpaths = [
     p
     for pattern in PPATH_PATTERNS
@@ -89,8 +99,16 @@ allpaths.sort()
 for onepath in allpaths:
     filename = (onepath - THIS_DIR).stem
 
-    if ARGS.noslow and filename.endswith(SLOW_SUFFIX):
-        print(f'- Ignoring  "{filename}" <-- no slow option activated')
+    nolaunch = False
+
+    for option, suffix in option2suffix.items():
+        if getattr(ARGS, option) \
+        and filename.endswith(suffix):
+            print(f"- No suffix {suffix} : << {filename} >> ignored.")
+
+            nolaunch = True
+
+    if nolaunch:
         continue
 
     print(f'+ Launching "{filename}"')

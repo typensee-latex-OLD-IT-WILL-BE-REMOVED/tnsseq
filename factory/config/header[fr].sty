@@ -44,6 +44,16 @@
 	listing side text
 }
 
+\newtcbinputlisting{\inputlatexex}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing side text
+}
+
+
 \newtcblisting{latexex-flat}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
@@ -51,12 +61,56 @@
 	colupper=red!75!blue,%
 }
 
+\newtcbinputlisting{\inputlatexexflat}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+}
+
+
 \newtcblisting{latexex-alone}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
 	bottom=1mm, top=1mm,%
 	colupper=red!75!blue,%
 	listing only
+}
+
+\newtcbinputlisting{\inputlatexexalone}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing only
+}
+
+
+\newcommand\inputlatexexcodeafter[1]{%
+	\begin{center}
+		\input{#1}
+	\end{center}
+
+	\vspace{-.5em}
+	
+	Le rendu précédent a été obtenu via le code suivant.
+	
+	\inputlatexexalone{#1}
+}
+
+
+\newcommand\inputlatexexcodebefore[1]{%
+	\inputlatexexalone{#1}
+	\vspace{-.75em}
+	\begin{center}
+		\textit{\footnotesize Rendu du code précédent}
+		
+		\medskip
+		
+		\input{#1}
+	\end{center}
 }
 
 

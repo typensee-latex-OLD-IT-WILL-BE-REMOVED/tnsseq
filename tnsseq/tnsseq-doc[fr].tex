@@ -49,6 +49,16 @@
 	listing side text
 }
 
+\newtcbinputlisting{\inputlatexex}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing side text
+}
+
+
 \newtcblisting{latexex-flat}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
@@ -56,12 +66,56 @@
 	colupper=red!75!blue,%
 }
 
+\newtcbinputlisting{\inputlatexexflat}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+}
+
+
 \newtcblisting{latexex-alone}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
 	bottom=1mm, top=1mm,%
 	colupper=red!75!blue,%
 	listing only
+}
+
+\newtcbinputlisting{\inputlatexexalone}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing only
+}
+
+
+\newcommand\inputlatexexcodeafter[1]{%
+	\begin{center}
+		\input{#1}
+	\end{center}
+
+	\vspace{-.5em}
+	
+	Le rendu précédent a été obtenu via le code suivant.
+	
+	\inputlatexexalone{#1}
+}
+
+
+\newcommand\inputlatexexcodebefore[1]{%
+	\inputlatexexalone{#1}
+	\vspace{-.75em}
+	\begin{center}
+		\textit{\footnotesize Rendu du code précédent}
+		
+		\medskip
+		
+		\input{#1}
+	\end{center}
 }
 
 
@@ -233,8 +287,8 @@ Voici un exemple.
 % ---------------------- %
 \section{Comparaison asymptotique de suites et de fonctions}
 
-\subsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
-                              {Les notations "grand O" et "petit O"}}
+\subsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%                           {Les notations "grand O" et "petit O"}}
+                           {Les notations "grand O" et "petit O"}}
 
 \newparaexample{}
 
@@ -259,8 +313,8 @@ $e^{t + \smallO{t}} = e^{\bigO{t}}$
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigomega{}$}%
-                              {La notation "grand Omega"}}
+\subsection{\texorpdfstring{La notation $\bigomega{}$}%                           {La notation "grand Omega"}}
+                           {La notation "grand Omega"}}
 
 \newparaexample{}
 
@@ -287,8 +341,8 @@ $f(n) = \bigomega{g(n)}$
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigtheta{}$}%
-                              {La notation "grand Theta"}}
+\subsection{\texorpdfstring{La notation $\bigtheta{}$}%                           {La notation "grand Theta"}}
+                           {La notation "grand Theta"}}
 
 \newparaexample{}
 
@@ -335,10 +389,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \newpage
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
-\subsection{Introduction}
+
 \subsection{Des notations complémentaires pour des suites spéciales}
 
-\subsubsection{Des suites spéciales}
 
 \IDmacro*{seqplus}{2}
 
@@ -371,7 +424,6 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{4} l'exposant à gauche.
 \subsection{Sommes et produits en mode ligne}
 
-\subsubsection{Sommes et produits en mode ligne}
 
 Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
 
@@ -381,41 +433,42 @@ Les macros suivantes sans argument ont un comportement spécifique vis à vis de
 
 \IDmacro*{dprod}{0}
 
-\IDmacro*{dsum}{0}
+\IDmacro*{dsum }{0}
 \subsection{Comparaison asymptotique de suites et de fonctions}
 
 \subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
-                          {Les notations "grand O" et "petit O"}}
+                           {Les notations "grand O" et "petit O"}}
 
-\IDmacro*{bigO}{1}
+
+\IDmacro*{bigO  }{1}
 
 \IDmacro*{smallO}{1}
 
-\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
+\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
 
 
 % ---------------------- %
-
 
 
 \subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
-                          {La notation "grand Omega"}}
+                           {La notation "grand Omega"}}
+
 
 \IDmacro*{bigomega}{1}
 
-\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
+\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
 
 
 % ---------------------- %
 
 
-
 \subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
-                          {La notation "grand Theta"}}
+                           {La notation "grand Theta"}}
+
 
 \IDmacro*{bigtheta}{1}
 
-\IDarg{} si l'argument est vide, il est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
-\newpage
+\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+
 
 \end{document}

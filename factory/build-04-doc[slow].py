@@ -82,7 +82,7 @@ def extract_level(line):
 def close_techsec(line, level):
     thislevel = extract_level(line.strip())
 
-    return (thislevel and levelsmaller(level, thislevel))
+    return (thislevel and level and levelsmaller(level, thislevel))
 
 
 def extract_title(level, lines, i):
@@ -148,20 +148,6 @@ def extracttechtitle(level):
     content_tiles = "\n".join(content_tiles)
 
     return content_tiles
-
-
-# ------------------------- #
-# -- COPYING EXTRA FILES -- #
-# ------------------------- #
-
-for img in THIS_DIR.walk("file::**\[fr\].png"):
-    if img.stem.endswith("-nodoc[fr]"):
-        continue
-
-    img.copy_to(
-        DIR_DOC_PATH / img.name,
-        safemode = False
-    )
 
 
 # ------------ #

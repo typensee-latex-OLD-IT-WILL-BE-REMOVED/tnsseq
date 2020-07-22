@@ -38,6 +38,12 @@
 \usepackage{cbdevtool}
 
 
+% Sections numbering
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\alph{subsection}.}
+\renewcommand\thesubsubsection{\roman{subsubsection}.}
+
 
 % MISC
 
@@ -390,7 +396,12 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
 
+
+
+
+
 \subsection{Des notations complémentaires pour des suites spéciales}
+
 
 
 \IDmacro*{seqplus}{2}
@@ -422,7 +433,10 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{3} l'exposant à droite.
 
 \IDarg{4} l'exposant à gauche.
+
+
 \subsection{Sommes et produits en mode ligne}
+
 
 
 Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
@@ -434,10 +448,13 @@ Les macros suivantes sans argument ont un comportement spécifique vis à vis de
 \IDmacro*{dprod}{0}
 
 \IDmacro*{dsum }{0}
+
+
 \subsection{Comparaison asymptotique de suites et de fonctions}
 
 \subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
                            {Les notations "grand O" et "petit O"}}
+
 
 
 \IDmacro*{bigO  }{1}
@@ -454,6 +471,7 @@ Les macros suivantes sans argument ont un comportement spécifique vis à vis de
                            {La notation "grand Omega"}}
 
 
+
 \IDmacro*{bigomega}{1}
 
 \IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
@@ -466,9 +484,12 @@ Les macros suivantes sans argument ont un comportement spécifique vis à vis de
                            {La notation "grand Theta"}}
 
 
+
 \IDmacro*{bigtheta}{1}
 
 \IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+
+
 
 
 \end{document}

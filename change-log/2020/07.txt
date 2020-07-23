@@ -1,4 +1,11 @@
 ==========
+2020-07-23
+==========
+
+**Internal machinery for the technical ¨infos:** the printing uses now ¨macroenvsign the new version of ¨cbdevtools (this tool is still in alpha version).
+
+
+==========
 2020-07-21
 ==========
 

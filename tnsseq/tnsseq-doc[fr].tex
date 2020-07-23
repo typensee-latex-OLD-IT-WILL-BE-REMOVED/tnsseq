@@ -12,6 +12,8 @@
 \usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{enumitem}
 
+\usepackage{pgffor}
+
 \usepackage{multicol}
 
 \usepackage{makecell}
@@ -35,7 +37,7 @@
 
 \usepackage{ifthen}
 
-\usepackage{cbdevtool}
+\usepackage{macroenvsign}
 
 
 % Sections numbering
@@ -439,15 +441,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-Les macros suivantes sans argument ont un comportement spécifique vis à vis des mises en index et en exposant. 
+Les opérateurs suivants ont un comportement spécifique vis à vis des mises en index et en exposant. 
 
 
 \separation
 
 
-\IDmacro*{dprod}{0}
+\IDope{dprod}
 
-\IDmacro*{dsum }{0}
+\IDope{dsum }
 
 
 \subsection{Comparaison asymptotique de suites et de fonctions}

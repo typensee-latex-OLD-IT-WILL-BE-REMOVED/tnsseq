@@ -119,7 +119,7 @@ def update_humansecs(seclevel, title):
     LAST_HUMAN_SECS[pos] = (seclevel, title)
 
 
-def extracttechtitle(level):
+def extracttechtitle(level, latexfile):
     global LAST_HUMAN_SECS
 
     goodpos = - 1
@@ -130,7 +130,10 @@ def extracttechtitle(level):
             break
 
     if goodpos == -1:
-        raise Exception("Illegal use of a title for a technical section.")
+        raise Exception(
+            "Illegal use of a title for a technical section. See :"
+            f"    * {latexfile}"
+        )
 
     content_tiles = []
 
@@ -222,7 +225,7 @@ for latexfile in LATEXFILES:
         if startingtech(aline):
             addtotech     = True
             lasttechlevel = extract_level(aline)
-            techcontent  += [extracttechtitle(lasttechlevel), ""]
+            techcontent  += [extracttechtitle(lasttechlevel, latexfile), ""]
 
             continue
 

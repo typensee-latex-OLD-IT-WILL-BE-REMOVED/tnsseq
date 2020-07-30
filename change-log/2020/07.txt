@@ -1,4 +1,11 @@
 ==========
+2020-07-29
+==========
+
+**Internal machinery for the documentation:** the ¨python file path::``build-01-dep[slow].py`` updates automatically a ¨tex file with all the packages used by ¨tnsseq.
+
+
+==========
 2020-07-23
 ==========
 

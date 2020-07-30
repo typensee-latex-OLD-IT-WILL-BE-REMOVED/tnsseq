@@ -7,7 +7,6 @@ import re
 from mistool.latex_use import about
 from mistool.os_use import PPath
 from mistool.string_use import between
-from mistool.term_use import ALL_FRAMES, withframe
 
 
 # --------------- #
@@ -16,15 +15,11 @@ from mistool.term_use import ALL_FRAMES, withframe
 
 THIS_DIR = PPath(__file__).parent
 
+PROJECT_NAME  = "tnsseq"
+
+DOC_INTRO_TEX = THIS_DIR / "00-intro" / "01-intro[fr].tex"
+DOC_DEP_TEX   = THIS_DIR / "00-intro" / "99-packages-used[fr].tex"
 JSON_DEP_PATH = THIS_DIR / "x-dep-x.json"
-
-
-DECO = " "*4
-
-MYFRAME = lambda x: withframe(
-    text  = x,
-    frame = ALL_FRAMES['latex_pretty']
-)
 
 PATTERN_CMD_NAME = re.compile("^\\\([a-zA-Z]+)")
 PATTERN_OPTIONS  = re.compile("^\\[(.+?)\\]")
@@ -33,6 +28,10 @@ PATTERN_IN_CURLY = re.compile("^\\{(.+?)\\}(.*)$")
 ABOUT_LATEX = about()
 
 PACKAGE_ID, TIKZLIB_ID, KIND_ID, NAMES_ID, OPTIONS_ID = range(5)
+
+PACKAGE_ALREADY_ANALYZED = []
+
+DECO = " "*4
 
 
 # ----------- #
@@ -128,10 +127,13 @@ def minify(packages):
     for stdsty in locallatexdir.walk("file::**.sty"):
         stdname = stdsty.stem
 
-        if stdname in packages:
+        if stdname in packages \
+        and stdname not in PACKAGE_ALREADY_ANALYZED:
             print(
                 f"{DECO*2}- Looking inside the offical << {stdsty.name} >>"
             )
+
+            PACKAGE_ALREADY_ANALYZED.append(stdname)
 
             with stdsty.open(
                 mode     = "r",
@@ -223,9 +225,9 @@ def builddep(styfiles):
     return allinfos
 
 
-# ---------------- #
-# -- LET'S WORK -- #
-# ---------------- #
+# ------------------ #
+# -- JSON VERSION -- #
+# ------------------ #
 
 paths_found = []
 
@@ -261,3 +263,103 @@ with JSON_DEP_PATH.open(
     encoding = "utf-8"
 ) as jsonfile:
     jsonfile.write(dumps(packages))
+
+
+# ------------- #
+# -- FOR DOC -- #
+# ------------- #
+
+packages = [
+    pack
+    for pack in packages['packages']
+]
+
+
+if "tnscom" in packages:
+    with open(
+        file     = DOC_INTRO_TEX,
+        mode     = 'r',
+        encoding = 'utf-8'
+    ) as docfile:
+        temp_tex = docfile.read()
+
+    text_start, _, text_end = between(
+        text = temp_tex,
+        seps = [
+            "% tnscom used - START",
+            "% tnscom used - END"
+        ],
+        keepseps = True
+    )
+
+    temp_tex = text_start + """
+\\section{Beta-dépendance}
+
+\\verb#tnscom# qui est disponible sur \\url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
+""" + text_end
+
+    with open(
+        file     = DOC_INTRO_TEX,
+        mode     = 'w',
+        encoding = 'utf-8'
+    ) as docfile:
+        docfile.write(temp_tex)
+
+    packages = [
+        pack
+        for pack in packages
+        if pack != "tnscom"
+    ]
+
+
+if packages:
+    with open(
+        file     = DOC_DEP_TEX,
+        mode     = 'r',
+        encoding = 'utf-8'
+    ) as docfile:
+        temp_tex = docfile.read()
+
+
+    text_start, _, text_end = between(
+        text = temp_tex,
+        seps = [
+            "% List of packages - START",
+            "% List of packages - END"
+        ],
+        keepseps = True
+    )
+
+
+    packages.sort()
+    packages = [
+        f"\\item \\verb#{pack}#"
+        for pack in packages
+    ]
+    packages = "\n        ".join(packages)
+
+
+    temp_tex = """
+\\section{Packages utilisés}
+
+La roue ayant déjà été inventée, le package \\verb#""" \
++ PROJECT_NAME \
++ """# réutilise les packages suivants sans aucun scrupule.
+
+\\begin{multicols}{4}
+    \\begin{itemize}
+        """ \
++ packages \
++ """
+    \\end{itemize}
+\\end{multicols}
+"""
+
+    temp_tex = text_start + temp_tex + text_end
+
+    with open(
+        file     = DOC_DEP_TEX,
+        mode     = 'w',
+        encoding = 'utf-8'
+    ) as docfile:
+        docfile.write(temp_tex)

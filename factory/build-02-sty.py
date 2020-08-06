@@ -90,6 +90,16 @@ if ALL_IMPORTS_N_TIKZ_LIBS["tikzlibs"]:
 
 ALL_IMPORTS = "\n".join(ALL_IMPORTS)
 
+# Trick for bm
+
+ALL_IMPORTS = ALL_IMPORTS.replace(
+    r"\RequirePackage{bm}",
+    r"""
+\newcommand\hmmax{0} % See this post :
+\newcommand\bmmax{0} % https://tex.stackexchange.com/a/243541/6880
+\RequirePackage{bm}
+    """.strip()
+)
 
 # ---------------- #
 # -- THE MACROS -- #

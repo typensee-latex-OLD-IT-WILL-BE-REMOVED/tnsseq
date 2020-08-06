@@ -42,9 +42,11 @@
 
 % Sections numbering
 
-\renewcommand\thesection{\arabic{section}.}
-\renewcommand\thesubsection{\alph{subsection}.}
+%\renewcommand\thechapter{\Alph{chapter}.}
+\renewcommand\thesection{\Roman{section}.}
+\renewcommand\thesubsection{\arabic{subsection}.}
 \renewcommand\thesubsubsection{\roman{subsubsection}.}
+
 
 
 % MISC
@@ -266,7 +268,7 @@ Le package \verb+tnsseq+ propose quelques macros utiles quand l'on parle de suit
 % List of packages - START
 \section{Packages utilisés}
 
-La roue ayant déjà été inventée, le package \verb#tnslinalg# réutilise les packages suivants sans aucun scrupule.
+La roue ayant déjà été inventée, le package \verb#tnsseq# réutilise les packages suivants sans aucun scrupule.
 
 \begin{multicols}{4}
     \begin{itemize}

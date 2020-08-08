@@ -18,6 +18,12 @@
 % -- SEQUENCES -- %
 % --------------- %
 
+% #1 .. #5 : here are the arguments will be printed.
+%
+%    #5    #4
+%       #1
+%    #2    #3
+
 \newcommand\seqsuprageo[5]{%
 	\prescript{#5}{#2}{#1}_{#3}^{#4}%
 }
@@ -51,7 +57,7 @@
 
 \DeclareMathOperator{\bigO}{\mathcal{O}}
 
-% Sources :
+% Source :
 %     * https://tex.stackexchange.com/a/30950/6880
 \newcommand\smallO{%
 	\mathchoice{% * Display style

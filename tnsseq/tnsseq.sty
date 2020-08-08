@@ -2,6 +2,8 @@
 % -- IMPORTS REQUIRED -- %
 % ---------------------- %
 
+% A
+\RequirePackage{amssymb}
 % B
 \newcommand\hmmax{0} % See this post :
 \newcommand\bmmax{0} % https://tex.stackexchange.com/a/243541/6880
@@ -20,9 +22,11 @@
 	\prescript{#5}{#2}{#1}_{#3}^{#4}%
 }
 
+
 \newcommand\seqhypergeo[3]{%
     \seqsuprageo{#1}{#2}{#3}{}{}%
 }
+
 
 \newcommand\seqplus[3]{%
     \seqsuprageo{#1}{}{#2}{#3}{}%
@@ -41,53 +45,22 @@
 % -- BIG SMALL O N CO -- %
 % ---------------------- %
 
+\DeclareMathOperator{\bigomega}{\bm{\Omega}}
+
+\DeclareMathOperator{\bigtheta}{\bm{\Theta}}
+
+\DeclareMathOperator{\bigO}{\mathcal{O}}
+
 % Sources :
-%     1) http://forum.mathematex.net/latex-f6/bonnes-commandes-de-base-t12278.html
-%     2) http://tex.stackexchange.com/questions/30944/mathcalo-and-font-size
-%     3) https://tex.stackexchange.com/a/53091/6880
-
-\newcommand\tnsseq@big@asympto@ope[2]{%
-    \ensuremath{%
-        \if\relax\detokenize{#2}\relax
-            #1%
-        \else
-            \mathop{}\mathopen{}#1\mathopen{}\left( #2 \right)%
-        \fi
-    }%
-}
-
-\newcommand\bigomega[1]{%
-    \tnsseq@big@asympto@ope{\bm{\Omega}}{#1}%
-}
-
-\newcommand\bigtheta[1]{%
-    \tnsseq@big@asympto@ope{\bm{\Theta}}{#1}%
-}
-
-\newcommand\bigO[1]{%
-    \tnsseq@big@asympto@ope{\mathcal{O}}{#1}%
-}
-
-\newcommand\smallO[1]{%
-    \if\relax\detokenize{#1}\relax
-        \mathchoice{% * Display style
-            {\scriptstyle\mathcal{O}}%
-        }{%           * Text style
-            {\scriptstyle\mathcal{O}}%
-        }{%           * Script style
-            {\scriptscriptstyle\mathcal{O}}%
-        }{%           * Script script style
-            %\scalebox{0.8}{$\scriptscriptstyle\mathcal{O}$}%
-        }
-    \else
-        \mathchoice{% * Display style
-            \operatorname{\scriptstyle\mathcal{O}}\!\left(#1\right)%
-        }{%           * Text style
-            \operatorname{\scriptstyle\mathcal{O}}\!\left(#1\right)%
-        }{%           * Script style
-            \operatorname{\scriptscriptstyle\mathcal{O}}\left(#1\right)%
-        }{%           * Script script style
-            \operatorname{\scalebox{0.8}{$\scriptscriptstyle\mathcal{O}$}}\left(#1\right)%
-        }
-    \fi
+%     * https://tex.stackexchange.com/a/30950/6880
+\newcommand\smallO{%
+	\mathchoice{% * Display style
+        \operatorname{\scriptstyle\mathcal{O}}%
+    }{%           * Text style
+        \operatorname{\scriptstyle\mathcal{O}}%
+    }{%           * Script style
+        \operatorname{\scriptscriptstyle\mathcal{O}}%
+    }{%           * Script script style
+        \operatorname{\scalebox{0.8}{$\scriptscriptstyle\mathcal{O}$}}%
+    }
 }

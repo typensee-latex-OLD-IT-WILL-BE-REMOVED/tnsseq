@@ -1,0 +1,8 @@
+==========
+2020-08-08
+==========
+
+**New minor version version::``0.1.0-beta`` of ¨tnsseq:** see the new features below.
+
+
+**Asymptotic operators:** the macros ``\bigO``, ``\smallO``, ``\bigOmega`` and ``\bigTheta`` are now real math operators.

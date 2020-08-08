@@ -235,10 +235,10 @@
 	Le package \texttt{tnsseq}:\\%
 	théorie générale des suites\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsseq.git}.}\\%
-{\footnotesize Version \texttt{0.0.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.1.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-10}
+\date{2020-08-08}
 
 \maketitle
 
@@ -272,6 +272,7 @@ La roue ayant déjà été inventée, le package \verb#tnsseq# réutilise les pa
 
 \begin{multicols}{4}
     \begin{itemize}
+        \item \verb#amssymb#
         \item \verb#bm#
         \item \verb#mathtools#
         \item \verb#yhmath#
@@ -317,7 +318,7 @@ Voici un exemple.
 % ---------------------- %
 \section{Comparaison asymptotique de suites et de fonctions}
 
-\subsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%                           {Les notations "grand O" et "petit O"}}
+\subsection{\texorpdfstring{Les notations $\bigO$ et $\smallO$}%                           {Les notations "grand O" et "petit O"}}
                            {Les notations "grand O" et "petit O"}}
 
 \newparaexample{}
@@ -325,7 +326,7 @@ Voici un exemple.
 Les notations suivantes sont dues à Landau.
 
 \begin{latexex}
-$\bigO{}$ ou $\smallO{}$
+$\bigO$ ou $\smallO$
 \end{latexex}
 
 
@@ -335,15 +336,15 @@ $\bigO{}$ ou $\smallO{}$
 \newparaexample{}
 
 \begin{latexex}
-$\bigO{x} \neq \smallO{x}$ ou
-$e^{t + \smallO{t}} = e^{\bigO{t}}$
+$\bigO(x) \neq \smallO(x)$ ou
+$e^{t + \smallO(t)} = e^{\bigO(t)}$
 \end{latexex}
 
 
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigomega{}$}%                           {La notation "grand Omega"}}
+\subsection{\texorpdfstring{La notation $\bigomega$}%                           {La notation "grand Omega"}}
                            {La notation "grand Omega"}}
 
 \newparaexample{}
@@ -351,7 +352,7 @@ $e^{t + \smallO{t}} = e^{\bigO{t}}$
 La notation suivante est due à Hardy et Littlewood.
 
 \begin{latexex}
-$\bigomega{}$
+$\bigomega$
 \end{latexex}
 
 
@@ -360,24 +361,24 @@ $\bigomega{}$
 
 \newparaexample{}
 
-Dans l'exemple suivant, $f(n) = \bigomega{g(n)}$ signifie :
+Dans l'exemple suivant, $f(n) = \bigomega(g(n))$ signifie :
 $\exists (m, n_0)$ tel que $n \geq n_0$ implique $f(n) \geq m g(n)$.
 
 \begin{latexex}
-$f(n) = \bigomega{g(n)}$
+$f(n) = \bigomega(g(n))$
 \end{latexex}
 
 
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigtheta{}$}%                           {La notation "grand Theta"}}
+\subsection{\texorpdfstring{La notation $\bigtheta$}%                           {La notation "grand Theta"}}
                            {La notation "grand Theta"}}
 
 \newparaexample{}
 
 \begin{latexex}
-$\bigtheta{}$
+$\bigtheta$
 \end{latexex}
 
 
@@ -386,10 +387,10 @@ $\bigtheta{}$
 
 \newparaexample{}
 
-Dans l'exemple suivant, $f(n) = \bigtheta{g(n)}$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
+Dans l'exemple suivant, $f(n) = \bigtheta(g(n))$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
 
 \begin{latexex}
-$f(n) = \bigtheta{g(n)}$
+$f(n) = \bigtheta(g(n))$
 \end{latexex}
 
 
@@ -407,6 +408,18 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-08-08] Nouvelle version mineure \verb+0.1.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Comparaison asymptotique}
+              ce sont de vrais opérateurs mathématiques qui sont définis en coulisse \emph{(du coup les macros \macro{bigO}, \macro{smallO}, \macro{bigOmega} et \macro{bigTheta} n'ont plus d'argument)}.   
+    \end{itemize}
+    
+    \separation
+
+% ------------------------ %
 
     \medskip
     \item[2020-07-10] Première version \verb+0.0.0-beta+.
@@ -479,42 +492,36 @@ Les opérateurs suivants ont un comportement spécifique vis à vis des mises en
 
 \subsection{Comparaison asymptotique de suites et de fonctions}
 
-\subsubsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+\subsubsection{\texorpdfstring{Les notations $\bigO$ et $\smallO$}%
                            {Les notations "grand O" et "petit O"}}
 
 
 
-\IDmacro[a]{bigO  }{1}
+\IDope{bigO}
 
-\IDmacro[a]{smallO}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
+\IDope{smallO}
 
 
 % ---------------------- %
 
 
-\subsubsection{\texorpdfstring{La notation $\bigomega{}$}%
+\subsubsection{\texorpdfstring{La notation $\bigomega$}%
                            {La notation "grand Omega"}}
 
 
 
-\IDmacro[a]{bigomega}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
+\IDope{bigomega}
 
 
 % ---------------------- %
 
 
-\subsubsection{\texorpdfstring{La notation $\bigtheta{}$}%
+\subsubsection{\texorpdfstring{La notation $\bigtheta$}%
                            {La notation "grand Theta"}}
 
 
 
-\IDmacro[a]{bigtheta}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+\IDope{bigtheta}
 
 
 

@@ -15,7 +15,7 @@
 
 \section{Comparaison asymptotique de suites et de fonctions}
 
-\subsection{\texorpdfstring{Les notations $\bigO{}$ et $\smallO{}$}%
+\subsection{\texorpdfstring{Les notations $\bigO$ et $\smallO$}%
                            {Les notations "grand O" et "petit O"}}
 
 \newparaexample{}
@@ -23,7 +23,7 @@
 Les notations suivantes sont dues à Landau.
 
 \begin{latexex}
-$\bigO{}$ ou $\smallO{}$
+$\bigO$ ou $\smallO$
 \end{latexex}
 
 
@@ -33,8 +33,8 @@ $\bigO{}$ ou $\smallO{}$
 \newparaexample{}
 
 \begin{latexex}
-$\bigO{x} \neq \smallO{x}$ ou
-$e^{t + \smallO{t}} = e^{\bigO{t}}$
+$\bigO(x) \neq \smallO(x)$ ou
+$e^{t + \smallO(t)} = e^{\bigO(t)}$
 \end{latexex}
 
 
@@ -43,17 +43,15 @@ $e^{t + \smallO{t}} = e^{\bigO{t}}$
 
 \subsection{Fiches techniques}
 
-\IDmacro[a]{bigO  }{1}
+\IDope{bigO}
 
-\IDmacro[a]{smallO}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigO{}$ ou $\smallO{}$.
+\IDope{smallO}
 
 
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigomega{}$}%
+\subsection{\texorpdfstring{La notation $\bigomega$}%
                            {La notation "grand Omega"}}
 
 \newparaexample{}
@@ -61,7 +59,7 @@ $e^{t + \smallO{t}} = e^{\bigO{t}}$
 La notation suivante est due à Hardy et Littlewood.
 
 \begin{latexex}
-$\bigomega{}$
+$\bigomega$
 \end{latexex}
 
 
@@ -70,11 +68,11 @@ $\bigomega{}$
 
 \newparaexample{}
 
-Dans l'exemple suivant, $f(n) = \bigomega{g(n)}$ signifie :
+Dans l'exemple suivant, $f(n) = \bigomega(g(n))$ signifie :
 $\exists (m, n_0)$ tel que $n \geq n_0$ implique $f(n) \geq m g(n)$.
 
 \begin{latexex}
-$f(n) = \bigomega{g(n)}$
+$f(n) = \bigomega(g(n))$
 \end{latexex}
 
 
@@ -83,21 +81,19 @@ $f(n) = \bigomega{g(n)}$
 
 \subsection{Fiches techniques}
 
-\IDmacro[a]{bigomega}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigomega{}$.
+\IDope{bigomega}
 
 
 % ---------------------- %
 
 
-\subsection{\texorpdfstring{La notation $\bigtheta{}$}%
+\subsection{\texorpdfstring{La notation $\bigtheta$}%
                            {La notation "grand Theta"}}
 
 \newparaexample{}
 
 \begin{latexex}
-$\bigtheta{}$
+$\bigtheta$
 \end{latexex}
 
 
@@ -106,10 +102,10 @@ $\bigtheta{}$
 
 \newparaexample{}
 
-Dans l'exemple suivant, $f(n) = \bigtheta{g(n)}$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
+Dans l'exemple suivant, $f(n) = \bigtheta(g(n))$ signifie : $\exists (m, M, n_0)$ tel que $m g(n) \leq f(n) \leq M g(n)$ dès que $n \geq n_0$.
 
 \begin{latexex}
-$f(n) = \bigtheta{g(n)}$
+$f(n) = \bigtheta(g(n))$
 \end{latexex}
 
 
@@ -118,8 +114,6 @@ $f(n) = \bigtheta{g(n)}$
 
 \subsection{Fiches techniques}
 
-\IDmacro[a]{bigtheta}{1}
-
-\IDarg{} un argument vide est ignoré, sinon il est mis entre des parenthèses après $\bigtheta{}$.
+\IDope{bigtheta}
 
 \end{document}

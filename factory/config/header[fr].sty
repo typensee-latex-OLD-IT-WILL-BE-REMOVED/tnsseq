@@ -7,6 +7,20 @@
 \usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{enumitem}
 
+% Source
+%	* https://tex.stackexchange.com/a/558025/6880
+\usepackage{tocbasic}[2020/07/22]% needs KOMA-Script version 3.31
+\DeclareTOCStyleEntries[
+  raggedentrytext,
+  linefill=\hfill,
+  indent=0pt,
+  dynindent,
+  numwidth=0pt,
+  numsep=1ex,
+  dynnumwidth
+]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
+\DeclareTOCStyleEntry[indentfollows=chapter]{tocline}{section}
+
 \usepackage{pgffor}
 
 \usepackage{multicol}

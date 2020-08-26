@@ -14,6 +14,7 @@ THIS_DIR = PPath( __file__ ).parent
 
 PROJECT_NAME  = "tnsseq"
 TEMPLATE_PATH = THIS_DIR / "config" / "doc[fr].tex"
+TEMPLATE_PATH = THIS_DIR / "config" / "doc[fr].tex"
 DIR_DOC_PATH  = THIS_DIR.parent / f"{PROJECT_NAME}"
 DOC_PATH      = DIR_DOC_PATH / f"{PROJECT_NAME}-doc[fr].tex"
 
@@ -324,9 +325,10 @@ for latexpath in DIR_DOC_PATH.walk(f"file::*.tex"):
     )
 
     builder = Build(
-        ppath      = latexpath,
-        repeat     = nbrepeat,
-        showoutput = True
+        ppath       = latexpath,
+        repeat      = nbrepeat,
+        showoutput  = True,
+        shellescape = True
     )
     builder.pdf()
 

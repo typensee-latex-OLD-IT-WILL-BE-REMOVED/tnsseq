@@ -15,8 +15,9 @@ DIR_FACTORY_PATH = PROJECT_PATH / "factory"
 DIR_DOC_PATH     = PROJECT_PATH / f"{PROJECT_NAME}"
 
 EXT_FOR_EXTRA = {
-    'png': "PNG images",
-    'tkz': "TikZ files",
+    'png'        : "PNG images",
+    'tkz'        : "TikZ files",
+    '[extra].tex': 'TeX "example" files',
 }
 
 

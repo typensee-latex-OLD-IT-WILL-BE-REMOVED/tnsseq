@@ -1,0 +1,8 @@
+==========
+2021-03-03
+==========
+
+**New minor version version::``0.2.0-beta`` of ¨tnsseq:** see the new features below.
+
+
+**Internal changes:** the packages ``bm`` and ``yhmath`` were unused so their imports have been removed.

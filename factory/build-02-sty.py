@@ -73,13 +73,12 @@ for pack, opts in ALL_IMPORTS_N_TIKZ_LIBS["packages"].items():
         ALL_IMPORTS.append(f"% {newfirst.upper()}")
         lastfirst = newfirst
 
-    ALL_IMPORTS.append("\\RequirePackage{" + pack + "}")
-
     if opts:
         for oneoption in opts:
             ALL_IMPORTS.append(
                 "\\PassOptionsToPackage{" + oneoption + "}{" + pack + "}"
             )
+    ALL_IMPORTS.append("\\RequirePackage{" + pack + "}")
 
 if ALL_IMPORTS_N_TIKZ_LIBS["tikzlibs"]:
     ALL_IMPORTS.append('')
@@ -120,7 +119,8 @@ for subdir in THIS_DIR.walk("dir::"):
         continue
 
     for latexfile in subdir.walk("file::*.sty"):
-        paths_found.append(latexfile)
+        if (latexfile - THIS_DIR).depth == 1:
+            paths_found.append(latexfile)
 
 
 paths_found.sort()
